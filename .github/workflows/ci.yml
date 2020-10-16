@@ -44,15 +44,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download Artifact
-      uses: actions/download-artifact@master
+    - uses: actions/download-artifact@master
       with:
         name: Artifact
         path: build/
     - name: Build and Push
       uses: docker/build-push-action@v2
       with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: starsaminf/github-packages-example/front
-          tag_with_ref: true
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: starsaminf/github-packages-example/front
+        tag_with_ref: true
