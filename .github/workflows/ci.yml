@@ -6,18 +6,15 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
@@ -40,3 +37,22 @@ jobs:
       with:
         name: Artifact
         path: build/
+
+  github-package:
+    if: github.ref  == 'refs/heads/master' || github.ref  == 'refs/heads/workflow' 
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@master
+      with:       
+        name: Artifact
+        path: build/
+    - name: Push to GitHub Packages
+      uses: docker/build-push-action@v1
+      with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: starsaminf/github-packages-example/front
+          tag_with_ref: true
