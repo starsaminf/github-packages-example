@@ -60,4 +60,4 @@ jobs:
         docker build . --rm -t ghcr.io/starsaminf/github-packages-example:latest
     - name: Push Docker images to registry
       run: |
-        docker ghcr.io/starsaminf/github-packages-example:latest
+        docker push ghcr.io/starsaminf/github-packages-example:latest
