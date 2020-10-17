@@ -57,7 +57,7 @@ jobs:
         password: ${{ secrets.PAT_GHCR }}
     - name: Build Docker images
       run: |
-        docker build . --rm --target base -t ghcr.io/starsaminf/github-packages-example:latest
+        docker build . --rm -t ghcr.io/starsaminf/github-packages-example:latest
     - name: Push Docker images to registry
       run: |
         docker ghcr.io/starsaminf/github-packages-example:latest
