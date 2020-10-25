@@ -56,6 +56,12 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.PAT_GHCR }}
     - name: Build Docker images
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_URL: ${{ secrets.DB_URL }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
       run: |
         docker build . --rm -t ghcr.io/starsaminf/github-packages-example:latest
     - name: Push Docker images to registry
